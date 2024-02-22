@@ -1,5 +1,5 @@
 class Protocol16Deserializer {
-  static protocol16Type = require('../enumerations/Protocol16Type.json')
+  static protocol16Type = require('./Protocol16Type.json')
 
   static deserialize(input, typeCode) {
     switch (typeCode) {

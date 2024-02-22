@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChestsHandler } from '../api/websocket/handlers/ChestsHandler.js'
 import { DungeonsHandler } from '../api/websocket/handlers/DungeonsHandler.js'
 import { HarvestablesHandler } from '../api/websocket/handlers/HarvestablesHandler.js'
@@ -10,36 +11,6 @@ const chestsHandler = new ChestsHandler()
 const dungeonsHandler = new DungeonsHandler(Settings)
 const harvestablesHandler = new HarvestablesHandler(Settings)
 const mobsHandler = new MobsHandler(Settings)
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-const socket = new WebSocket('ws://localhost:5002')
-
-socket.addEventListener('open', (event) => {
-  console.log('Connected to the WebSocket server.')
-})
-
-socket.addEventListener('message', (event) => {
-  const data = JSON.parse(event.data)
-
-  // Extract the string and dictionary from the object
-  const extractedString = data.code
-
-  const extractedDictionary = JSON.parse(data.dictionary)
-
-  switch (extractedString) {
-    case 'request':
-      onRequest(extractedDictionary.parameters)
-      break
-
-    case 'event':
-      onEvent(extractedDictionary.parameters)
-      break
-
-    case 'response':
-      onResponse(extractedDictionary.parameters)
-      break
-  }
-})
 
 export function onEvent(Parameters) {
   const id = parseInt(Parameters[0])
@@ -118,7 +89,7 @@ export function onRequest(Parameters) {
     lpX = Parameters[1][0]
     lpY = Parameters[1][1]
 
-    // console.log('X: ' + lpX + ', Y: ' + lpY) // Meu personagem
+    console.log('X: ' + lpX + ', Y: ' + lpY) // Meu personagem
   }
 }
 
