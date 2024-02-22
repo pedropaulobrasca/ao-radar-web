@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
+import { RouterProvider } from 'react-router-dom'
 
+import { router } from './routes'
 import { onEvent, onRequest, onResponse } from './utils/Utils'
 
 interface DataResponse {
@@ -9,7 +11,7 @@ interface DataResponse {
 
 const socket = new WebSocket('ws://localhost:5002')
 
-function App() {
+export function App() {
   useEffect(() => {
     socket.onopen = () => {
       console.log('Conectado')
@@ -48,9 +50,7 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">oi</h1>
+      <RouterProvider router={router} />
     </>
   )
 }
-
-export default App

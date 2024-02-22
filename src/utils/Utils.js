@@ -1,8 +1,8 @@
-import { ChestsHandler } from '../handlers/ChestsHandler.js'
-import { DungeonsHandler } from '../handlers/DungeonsHandler.js'
-import { HarvestablesHandler } from '../handlers/HarvestablesHandler.js'
-import { MobsHandler } from '../handlers/MobsHandler'
-import { PlayersHandler } from '../handlers/PlayersHandler.js'
+import { ChestsHandler } from '../api/websocket/handlers/ChestsHandler.js'
+import { DungeonsHandler } from '../api/websocket/handlers/DungeonsHandler.js'
+import { HarvestablesHandler } from '../api/websocket/handlers/HarvestablesHandler.js'
+import { MobsHandler } from '../api/websocket/handlers/MobsHandler.js'
+import { PlayersHandler } from '../api/websocket/handlers/PlayersHandler.js'
 import { Settings } from './Settings.js'
 
 const playersHandler = new PlayersHandler()
