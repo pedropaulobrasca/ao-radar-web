@@ -1,15 +1,15 @@
-/* eslint-disable no-undef */
 import { ChestsHandler } from '../handlers/ChestsHandler.js'
 import { DungeonsHandler } from '../handlers/DungeonsHandler.js'
 import { HarvestablesHandler } from '../handlers/HarvestablesHandler.js'
 import { MobsHandler } from '../handlers/MobsHandler'
 import { PlayersHandler } from '../handlers/PlayersHandler.js'
+import { Settings } from './Settings.js'
 
 const playersHandler = new PlayersHandler()
 const chestsHandler = new ChestsHandler()
-const dungeonsHandler = new DungeonsHandler()
-const harvestablesHandler = new HarvestablesHandler()
-const mobsHandler = new MobsHandler()
+const dungeonsHandler = new DungeonsHandler(Settings)
+const harvestablesHandler = new HarvestablesHandler(Settings)
+const mobsHandler = new MobsHandler(Settings)
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const socket = new WebSocket('ws://localhost:5002')
@@ -51,47 +51,81 @@ export function onEvent(Parameters) {
     mobsHandler.removeMob(id)
     dungeonsHandler.RemoveDungeon(id)
     chestsHandler.removeChest(id)
-  } else if (eventCode === 3) {
+  }
+
+  if (eventCode === 3) {
     const posX = Parameters[4]
     const posY = Parameters[5]
     playersHandler.updatePlayerPosition(id, posX, posY)
     mobsHandler.updateMistPosition(id, posX, posY)
     mobsHandler.updateMobPosition(id, posX, posY)
-  } else if (eventCode === 27) {
+
+    if (playersHandler.playersInRange.length > 0) {
+      for (let i = 0; i < playersHandler.playersInRange.length; i++) {
+        const player = playersHandler.playersInRange[i]
+        console.log('Player in range: ' + player.nickname)
+      }
+    }
+  }
+
+  if (eventCode === 27) {
     const ignoreList = JSON.parse(localStorage.getItem('ignoreList')) || []
     playersHandler.handleNewPlayerEvent(id, Parameters, ignoreList, false)
-  } else if (eventCode === 36) {
+  }
+
+  if (eventCode === 36) {
     harvestablesHandler.newSimpleHarvestableObject(Parameters)
-  } else if (eventCode === 37) {
+  }
+
+  if (eventCode === 37) {
     harvestablesHandler.newHarvestableObject(id, Parameters)
-  } else if (eventCode === 58) {
+  }
+
+  if (eventCode === 58) {
     harvestablesHandler.harvestFinished(Parameters)
-  } else if (eventCode === 44) {
+  }
+
+  if (eventCode === 44) {
     mobsHandler.updateEnchantEvent(Parameters)
-  } else if (eventCode === 86) {
+  }
+
+  if (eventCode === 86) {
     playersHandler.updateItems(id, Parameters)
-  } else if (eventCode === 118) {
+  }
+
+  if (eventCode === 118) {
     mobsHandler.NewMobEvent(Parameters)
-  } else if (eventCode === 201) {
+  }
+
+  if (eventCode === 201) {
     playersHandler.handleMountedPlayerEvent(id, Parameters)
-  } else if (eventCode === 309) {
+  }
+
+  if (eventCode === 309) {
     dungeonsHandler.dungeonEvent(Parameters)
-  } else if (eventCode === 378) {
+  }
+
+  if (eventCode === 378) {
     chestsHandler.addChestEvent(Parameters)
   }
 }
 
 export function onRequest(Parameters) {
+  let lpX // Declare the variable lpX
+  let lpY // Declare the variable lpY
   // Player moving
   if (Parameters[253] === 21) {
     lpX = Parameters[1][0]
     lpY = Parameters[1][1]
 
-    console.log('X: ' + lpX + ', Y: ' + lpY)
+    // console.log('X: ' + lpX + ', Y: ' + lpY) // Meu personagem
   }
 }
 
 export function onResponse(Parameters) {
+  let lpX // Declare the variable lpX
+  let lpY // Declare the variable lpY
+  let map
   // Player join new map
   if (Parameters[253] === 35) {
     map.id = Parameters[0]

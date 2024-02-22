@@ -161,7 +161,7 @@ export class PlayersHandler {
     )
     this.playersInRange.push(player)
 
-    if (!sound) return
+    // if (!sound) return
 
     const audio = new Audio('/sounds/player.mp3')
     audio.play()
