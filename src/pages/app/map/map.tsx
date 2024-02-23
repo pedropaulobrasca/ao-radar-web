@@ -32,7 +32,7 @@ export function Map() {
   const canvasItemsRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    if (isMap.pathname === '/map' && !socket) {
+    if (isMap.pathname === '/' && !socket) {
       const newSocket = new WebSocket('ws://localhost:5002')
 
       newSocket.onopen = () => {
@@ -105,42 +105,41 @@ export function Map() {
   }, [])
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative flex items-center justify-center bg-slate-950">
       <canvas
         id="mapCanvas"
         ref={canvasMapRef}
         width="500"
         height="500"
-        className="absolute left-0 top-0 m-2.5"
+        className="absolute right-0 top-0 m-2.5"
       ></canvas>
       <canvas
         id="gridCanvas"
         ref={canvasGridRef}
         width="500"
         height="500"
-        className="absolute left-0 top-0 m-2.5 bg-gray-500"
+        className="absolute right-0 top-0 m-2.5 bg-gray-500"
       ></canvas>
       <canvas
         id="drawCanvas"
         ref={canvasRef}
         width="500"
         height="500"
-        className="absolute left-0 top-0 m-2.5"
+        className="absolute right-0 top-0 m-2.5"
       ></canvas>
       <canvas
         id="ourPlayerCanvas"
         ref={canvasOurPlayerRef}
         width="500"
         height="500"
-        className="absolute left-0 top-0 m-2.5"
+        className="absolute right-0 top-0 m-2.5"
       ></canvas>
-      <canvas
+      {/* {<canvas
         id="thirdCanvas"
         ref={canvasItemsRef}
-        width="500"
-        height="500"
-        className="absolute bottom-0 left-0 top-[520px] m-2.5 border-2"
-      ></canvas>
+        style={{ width: '100vw', height: '100vh' }}
+        className="absolute bottom-0 left-0 top-[520px] border-2"
+      ></canvas>} */}
     </div>
   )
 }

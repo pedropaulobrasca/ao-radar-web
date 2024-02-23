@@ -163,8 +163,8 @@ export class PlayersHandler {
 
     // if (!sound) return
 
-    // const audio = new Audio('/sounds/player.mp3')
-    // audio.play()
+    const audio = new Audio('/sounds/player.mp3')
+    audio.play()
   }
 
   updateLocalPlayerNextPosition(posX, posY) {
