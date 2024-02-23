@@ -11,10 +11,10 @@ export class Settings {
     // #endregion
 
     // #region Players
-    this.settingDot = false
-    this.settingNickname = false
-    this.settingHealth = false
-    this.settingMounted = false
+    this.settingDot = true
+    this.settingNickname = true
+    this.settingHealth = true
+    this.settingMounted = true
     this.settingItems = false
     this.settingItemsDev = false
     this.settingDistance = false
